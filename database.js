@@ -51,7 +51,7 @@ const addEntry = async (data = {
 }
 
 const getAll = async () => {
-  return IP.find()
+  return IP.find().sort({'createdAt': -1})
 }
 
 module.exports = {
