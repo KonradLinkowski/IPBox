@@ -5,13 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IP Box</title>
   <style>
+    body {
+      margin: 0;
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+
     .header__title {
       text-align: center;
+      font-size: 50px;
     }
 
     .visitors {
+      margin: 0 auto;
       border-collapse: collapse;
       width: 100%;
+      white-space: nowrap;
+      overflow-x: auto;
+      display: block;
     }
 
     .visitors__tcell, .visitors__hcell {
@@ -30,15 +41,19 @@
       background-color: #4CAF50;
       color: white;
     }
+
+    .map {
+      height: 80vh;
+    }
   </style>
 </head>
 <body>
   <header class="header">
     <h1 class="header__title">IP Box</h1>
   </header>
-  <main>
+  <main class="main-container">
     <table id="table" class="visitors">
-      <caption>Visitors<caption>
+      <caption>Visitors</caption>
       <thead class="visitors__header">
         <th class="visitors__hcell">IP</th>
         <th class="visitors__hcell">Country</th>
@@ -49,22 +64,33 @@
         <th class="visitors__hcell">Longitude</th>
         <th class="visitors__hcell">Date</th>
       </thead>
-      <tbody class="visitors__body">
-      </tbody>
+      <tbody class="visitors__body"></tbody>
     </table>
+    <div id="mapid" class="map"></div>
   </main>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""></script>
   <script>
     (async () => {
+      const currentData = []
+
+      const map = L.map('mapid')
+
+      L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+        maxZoom: 20,
+      }).addTo(map)
+
       const fetchData = async () => {
         return await (await fetch('info')).json()
       }
 
       const renderTable = data => {
         const $table = document.querySelector('#table tbody')
-
-        while ($table.firstChild) {
-          $table.removeChild($table.lastChild)
-        }
 
         const $rowTemplate = document.createElement('tr')
         $rowTemplate.classList.add("visitors__row")
@@ -100,9 +126,27 @@
         })
       }
 
+      const createMarkers = (data) => {
+        data.forEach(datum => {
+          if (datum.latitude !== undefined && datum.longitude != undefined) {
+            L.marker([datum.latitude, datum.longitude]).addTo(map)
+          }
+        })
+      }
+
+      const filterNewData = data => {
+        return data.filter(datum => !currentData.find(currentDatum => currentDatum._id === datum._id))
+      }
+
       const run = async () => {
         const data = await fetchData()
-        renderTable(data)
+        const newData = filterNewData(data)
+        Array.prototype.push.apply(currentData, newData)
+        if (newData.length) {
+          map.setView([newData[0].latitude, newData[0].longitude], 13)
+          renderTable(newData)
+          createMarkers(newData)
+        }
       }
 
       setInterval(run, 5000)
