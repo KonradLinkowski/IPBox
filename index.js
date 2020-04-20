@@ -6,8 +6,6 @@ const PORT = 3214
 
 const app = express()
 
-const requests = []
-
 app.get('/', async (req, res) => {
   try {
     const ip = req.header('x-forwarded-for') || req.connection.remoteAddress

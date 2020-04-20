@@ -9,8 +9,12 @@
   <h1>Hej</h1>
   <script>
     (async () => {
-      const data = await (await fetch('info')).json()
-      console.log(data)
+      const fetchData = async () => {
+        return await (await fetch('info')).json()
+      }
+
+      setInterval(fetchData, 5000)
+      fetchData()
     })()
   </script>
 </body>
