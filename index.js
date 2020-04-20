@@ -13,7 +13,7 @@ app.get('/', async (req, res) => {
     const ipinfo = await getIPInfo(ip)
     await database.addEntry({
       ip,
-      country: ipinfo.country,
+      country: ipinfo.country_name,
       latitude: ipinfo.latitude,
       longitude: ipinfo.longitude,
       organization: ipinfo.org,
