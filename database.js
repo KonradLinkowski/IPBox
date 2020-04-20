@@ -1,44 +1,40 @@
-const { Sequelize, DataTypes } = require('sequelize')
+const mongoose = require('mongoose')
 
-const database = new Sequelize({
-  dialect: 'sqlite',
-  storage: 'store.sqlite'
-})
+mongoose.connect(process.env.DATABASE_STRING, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true
+});
 
-const IP = database.define('IP', {
-  id: {
-    primaryKey: true,
-    type: DataTypes.UUID,
-    defaultValue: Sequelize.UUIDV4
-  },
+const IPSchema = new mongoose.Schema({
   ip: {
-    type: DataTypes.STRING,
-    allowNull: false,
+    type: String,
+    required: true,
     unique: true
   },
   region: {
-    type: DataTypes.STRING
+    type: String
   },
   country: {
-    type: DataTypes.STRING
+    type: String
   },
   postalCode: {
-    type: DataTypes.STRING
+    type: String
   },
   latitude: {
-    type: DataTypes.NUMBER
+    type: String
   },
   longitude: {
-    type: DataTypes.NUMBER
+    type: String
   },
   organization: {
-    type: DataTypes.NUMBER
+    type: String
   }
 }, {
-  tableName: 'IPs'
+  timestamps: true
 })
 
-IP.sync()
+const IP = mongoose.model('IP', IPSchema)
 
 const addEntry = async (data = {
   ip,
@@ -55,7 +51,7 @@ const addEntry = async (data = {
 }
 
 const getAll = async () => {
-  return IP.findAll()
+  return IP.find()
 }
 
 module.exports = {

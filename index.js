@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const path = require('path')
 const database = require('./database')
@@ -7,10 +8,10 @@ const PORT = 3214 || process.env.PORT
 const app = express()
 
 app.get('/', async (req, res) => {
+  const ip = req.header('x-forwarded-for') || req.connection.remoteAddress
   try {
-    const ip = req.header('x-forwarded-for') || req.connection.remoteAddress
     const ipinfo = await getIPInfo(ip)
-    database.addEntry({
+    await database.addEntry({
       ip,
       country: ipinfo.country,
       latitude: ipinfo.latitude,
@@ -20,14 +21,23 @@ app.get('/', async (req, res) => {
       region: ipinfo.region
     })
   } catch (error) {
-    console.log(error)
+    if (error.code === 11000) {
+      console.log('Duplicated IP', ip)
+    } else {
+      console.error(error)
+    }
   }
   res.sendFile(path.join(__dirname, './index.html'))
 })
 
 app.get('/info', async (req, res) => {
-  const data = await database.getAll()
-  res.json(data)
+  try {
+    const data = await database.getAll()
+    res.json(data)
+  } catch (error) {
+    console.error(error)
+    res.sendStatus(500)
+  }
 })
 
 app.listen(PORT, () => {
