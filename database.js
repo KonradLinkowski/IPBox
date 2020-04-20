@@ -2,9 +2,7 @@ const { Sequelize, DataTypes } = require('sequelize')
 
 const database = new Sequelize({
   dialect: 'sqlite',
-  storage: ':memory:',
-  // storage: 'test.sqlite'
-
+  storage: 'store.sqlite'
 })
 
 const IP = database.define('IP', {
