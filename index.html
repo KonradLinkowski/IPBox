@@ -100,9 +100,13 @@
         })
       }
 
-      setInterval(fetchData, 5000)
-      const data = await fetchData()
-      renderTable(data)
+      const run = async () => {
+        const data = await fetchData()
+        renderTable(data)
+      }
+
+      setInterval(run, 5000)
+      run()
     })()
   </script>
 </body>
