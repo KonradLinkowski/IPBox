@@ -3,7 +3,7 @@ const express = require('express')
 const path = require('path')
 const database = require('./database')
 const { getIPInfo } = require('./ipinfo')
-const PORT = 3214 || process.env.PORT
+const PORT =  process.env.PORT || 3214
 
 const app = express()
 
