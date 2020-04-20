@@ -3,18 +3,106 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>IP Box</title>
+  <style>
+    .header__title {
+      text-align: center;
+    }
+
+    .visitors {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    .visitors__tcell, .visitors__hcell {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    .visitors__row:nth-child(even){background-color: #f2f2f2;}
+
+    .visitors__row:hover {background-color: #ddd;}
+
+    .visitors__hcell {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #4CAF50;
+      color: white;
+    }
+  </style>
 </head>
 <body>
-  <h1>Hej</h1>
+  <header class="header">
+    <h1 class="header__title">IP Box</h1>
+  </header>
+  <main>
+    <table id="table" class="visitors">
+      <caption>Visitors<caption>
+      <thead class="visitors__header">
+        <th class="visitors__hcell">IP</th>
+        <th class="visitors__hcell">Country</th>
+        <th class="visitors__hcell">Region</th>
+        <th class="visitors__hcell">Postal Code</th>
+        <th class="visitors__hcell">Internet Provider</th>
+        <th class="visitors__hcell">Latitude</th>
+        <th class="visitors__hcell">Longitude</th>
+        <th class="visitors__hcell">Date</th>
+      </thead>
+      <tbody class="visitors__body">
+      </tbody>
+    </table>
+  </main>
   <script>
     (async () => {
       const fetchData = async () => {
         return await (await fetch('info')).json()
       }
 
+      const renderTable = data => {
+        const $table = document.querySelector('#table tbody')
+
+        while ($table.firstChild) {
+          $table.removeChild($table.lastChild)
+        }
+
+        const $rowTemplate = document.createElement('tr')
+        $rowTemplate.classList.add("visitors__row")
+        const $cellTemplate = document.createElement('td')
+        $rowTemplate.classList.add("visitors__tcell")
+
+        const createCell = text => {
+          const $cell = $cellTemplate.cloneNode(true)
+          $cell.textContent = text
+          return $cell
+        }
+
+        data.forEach(datum => {
+          const $row = $rowTemplate.cloneNode(true)
+          $row.appendChild(createCell(datum.ip))
+          $row.appendChild(createCell(datum.country))
+          $row.appendChild(createCell(datum.region))
+          $row.appendChild(createCell(datum.postalCode))
+          $row.appendChild(createCell(datum.organization))
+          $row.appendChild(createCell(datum.latitude))
+          $row.appendChild(createCell(datum.longitude))
+          const dtf = new Intl.DateTimeFormat('en-gb',
+          {
+            year: 'numeric',
+            month: 'short',
+            day: '2-digit',
+            hour: 'numeric',
+            minute: 'numeric'
+          }) 
+          const date = dtf.format(new Date(datum.createdAt))
+          $row.appendChild(createCell(date))
+          $table.appendChild($row)
+        })
+      }
+
       setInterval(fetchData, 5000)
-      fetchData()
+      const data = await fetchData()
+      renderTable(data)
     })()
   </script>
 </body>
