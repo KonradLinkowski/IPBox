@@ -95,7 +95,8 @@
           month: 'short',
           day: '2-digit',
           hour: 'numeric',
-          minute: 'numeric'
+          minute: 'numeric',
+          second: 'numeric'
         }) 
         return dtf.format(new Date(date))
       }
@@ -150,7 +151,7 @@
       const run = async () => {
         const data = await fetchData()
         const newData = filterNewData(data)
-        Array.prototype.push.apply(currentData, newData)
+        Array.prototype.unshift.apply(currentData, newData)
         if (newData.length) {
           map.setView([newData[0].latitude, newData[0].longitude], 13)
           renderTable(newData)
