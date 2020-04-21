@@ -19,22 +19,37 @@
     <h1 class="header__title">IP Box</h1>
   </header>
   <main class="main-container">
-    <table id="table" class="visitors">
-      <caption class="visitors__title">Visitors</caption>
-      <thead class="visitors__header">
-        <th class="visitors__hcell">#</th>
-        <th class="visitors__hcell">IP</th>
-        <th class="visitors__hcell">Country</th>
-        <th class="visitors__hcell">Region</th>
-        <th class="visitors__hcell">Postal Code</th>
-        <th class="visitors__hcell">Internet Provider</th>
-        <th class="visitors__hcell">Latitude</th>
-        <th class="visitors__hcell">Longitude</th>
-        <th class="visitors__hcell">Date</th>
-      </thead>
-      <tbody class="visitors__body"></tbody>
-    </table>
-    <div id="map" class="map"></div>
+    <div id="tabs" class="tabs">
+      <ul class="tabs__list">
+        <li class="tabs__list-item">
+          <a class="tabs__link" href="#map">Map</a>
+        </li>
+        <li class="tabs__list-item">
+          <a class="tabs__link" href="#table">Table</a>
+        </li>
+      </ul>
+      <section class="tabs__panel" id="map">
+        <h2 class="panel__title">Visitors Map</h2>
+        <div id="visitors-map" class="map"></div>
+      </section>
+      <section class="tabs__panel" id="table">
+        <h2 class="panel__title">Visitors Table</h2>
+        <table id="visitors-table" class="visitors">
+          <thead class="visitors__header">
+            <th class="visitors__hcell">#</th>
+            <th class="visitors__hcell">IP</th>
+            <th class="visitors__hcell">Country</th>
+            <th class="visitors__hcell">Region</th>
+            <th class="visitors__hcell">Postal Code</th>
+            <th class="visitors__hcell">Internet Provider</th>
+            <th class="visitors__hcell">Latitude</th>
+            <th class="visitors__hcell">Longitude</th>
+            <th class="visitors__hcell">Date</th>
+          </thead>
+          <tbody class="visitors__body"></tbody>
+        </table>
+      </section>
+    </div>
   </main>
   <script
     src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
@@ -42,6 +57,7 @@
     crossorigin=""
   ></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js" crossorigin=""></script>
+  <script src="assets/tabs.js"></script>
   <script src="assets/public.js"></script>
 </body>
 </html>

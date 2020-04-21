@@ -2,7 +2,7 @@
 (async () => {
   const currentData = []
 
-  const map = L.map('map', {
+  const map = L.map('visitors-map', {
     worldCopyJump: true,
     maxZoom: 19,
     minZoom: 3
@@ -33,7 +33,7 @@
   }
 
   const renderTable = data => {
-    const $table = document.querySelector('#table tbody')
+    const $table = document.querySelector('#visitors-table tbody')
 
     const $rowTemplate = document.createElement('tr')
     $rowTemplate.classList.add("visitors__row")
@@ -104,4 +104,4 @@
 
   setInterval(run, 3000)
   run()
-})()
+})();
