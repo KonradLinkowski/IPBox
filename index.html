@@ -125,7 +125,7 @@
           $row.appendChild(createCell(datum.latitude))
           $row.appendChild(createCell(datum.longitude))
           $row.appendChild(createCell(formatDate(datum.createdAt)))
-          $table.appendChild($row)
+          $table.insertBefore($row, $table.firstChild)
         })
       }
 
@@ -153,13 +153,14 @@
         const newData = filterNewData(data)
         Array.prototype.unshift.apply(currentData, newData)
         if (newData.length) {
-          map.setView([newData[0].latitude, newData[0].longitude], 13)
+          const firstTrue = newData.find(datum => datum.latitude && datum.longitude)
+          map.setView([firstTrue.latitude, firstTrue.longitude], 13)
           renderTable(newData)
           createMarkers(newData)
         }
       }
 
-      setInterval(run, 5000)
+      setInterval(run, 3000)
       run()
     })()
   </script>
