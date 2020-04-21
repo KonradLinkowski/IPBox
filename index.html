@@ -25,6 +25,11 @@
       display: block;
     }
 
+    .visitors__title {
+      font-size: 30px;
+      margin: 10px;
+    }
+
     .visitors__tcell, .visitors__hcell {
       border: 1px solid #ddd;
       padding: 8px;
@@ -53,7 +58,7 @@
   </header>
   <main class="main-container">
     <table id="table" class="visitors">
-      <caption>Visitors</caption>
+      <caption class="visitors__title">Visitors</caption>
       <thead class="visitors__header">
         <th class="visitors__hcell">IP</th>
         <th class="visitors__hcell">Country</th>
@@ -107,7 +112,7 @@
         const $rowTemplate = document.createElement('tr')
         $rowTemplate.classList.add("visitors__row")
         const $cellTemplate = document.createElement('td')
-        $rowTemplate.classList.add("visitors__tcell")
+        $cellTemplate.classList.add("visitors__tcell")
 
         const createCell = text => {
           const $cell = $cellTemplate.cloneNode(true)
