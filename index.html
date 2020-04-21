@@ -72,19 +72,30 @@
       </thead>
       <tbody class="visitors__body"></tbody>
     </table>
-    <div id="mapid" class="map"></div>
+    <div id="map" class="map"></div>
   </main>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
     integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
     crossorigin=""/>
   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
     integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-    crossorigin=""></script>
+    crossorigin=""
+  ></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" crossorigin="">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" crossorigin="">
+  <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js" crossorigin=""></script>
   <script>
     (async () => {
       const currentData = []
 
-      const map = L.map('mapid')
+      const map = L.map('map', {
+        worldCopyJump: true,
+        maxZoom: 19,
+        minZoom: 3
+      })
+
+      const markers = L.markerClusterGroup()
+      map.addLayer(markers)
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
@@ -139,14 +150,24 @@
       const createMarkers = (data) => {
         data.forEach(datum => {
           if (datum.latitude !== undefined && datum.longitude != undefined) {
-            const marker = L.marker([datum.latitude, datum.longitude]).addTo(map)
+            const marker = L.marker([datum.latitude, datum.longitude])
+            markers.addLayer(marker)
             marker.on('mouseover', e => {
               e.target.openPopup()
             })
             marker.on('mouseout', e => {
               e.target.closePopup()
-            });
-            marker.bindPopup([datum.ip, datum.country, formatDate(datum.createdAt)].join('<br>'))
+            })
+            marker.bindPopup([
+              `# ${datum.position}`,
+              `IP: ${datum.ip}`,
+              `Country: ${datum.country}`,
+              `Region: ${datum.region}`,
+              `Lat: ${datum.latitude}`,
+              `Lon: ${datum.longitude}`,
+              `Org: ${datum.organization}`,
+              `Date: ${formatDate(datum.createdAt)}`
+            ].join('<br>'))
           }
         })
       }
