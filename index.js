@@ -7,6 +7,8 @@ const PORT =  process.env.PORT || 3214
 
 const app = express()
 
+app.use('/assets', express.static(path.join(__dirname, 'public', 'assets')))
+
 app.get('/', async (req, res) => {
   const ip = req.header('x-forwarded-for') || req.connection.remoteAddress
   try {
@@ -27,7 +29,7 @@ app.get('/', async (req, res) => {
       console.error(error)
     }
   }
-  res.sendFile(path.join(__dirname, './index.html'))
+  res.sendFile(path.join(__dirname, 'public', 'index.html'))
 })
 
 app.get('/info', async (req, res) => {

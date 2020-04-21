@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IP Box</title>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin=""
+  >
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" crossorigin="">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" crossorigin="">
+  <link rel="stylesheet" href="assets/public.css">
+</head>
+<body>
+  <header class="header">
+    <h1 class="header__title">IP Box</h1>
+  </header>
+  <main class="main-container">
+    <table id="table" class="visitors">
+      <caption class="visitors__title">Visitors</caption>
+      <thead class="visitors__header">
+        <th class="visitors__hcell">#</th>
+        <th class="visitors__hcell">IP</th>
+        <th class="visitors__hcell">Country</th>
+        <th class="visitors__hcell">Region</th>
+        <th class="visitors__hcell">Postal Code</th>
+        <th class="visitors__hcell">Internet Provider</th>
+        <th class="visitors__hcell">Latitude</th>
+        <th class="visitors__hcell">Longitude</th>
+        <th class="visitors__hcell">Date</th>
+      </thead>
+      <tbody class="visitors__body"></tbody>
+    </table>
+    <div id="map" class="map"></div>
+  </main>
+  <script
+    src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""
+  ></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js" crossorigin=""></script>
+  <script src="assets/public.js"></script>
+</body>
+</html>
