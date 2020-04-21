@@ -60,6 +60,7 @@
     <table id="table" class="visitors">
       <caption class="visitors__title">Visitors</caption>
       <thead class="visitors__header">
+        <th class="visitors__hcell">#</th>
         <th class="visitors__hcell">IP</th>
         <th class="visitors__hcell">Country</th>
         <th class="visitors__hcell">Region</th>
@@ -122,6 +123,7 @@
 
         data.forEach(datum => {
           const $row = $rowTemplate.cloneNode(true)
+          $row.appendChild(createCell(datum.position))
           $row.appendChild(createCell(datum.ip))
           $row.appendChild(createCell(datum.country))
           $row.appendChild(createCell(datum.region))

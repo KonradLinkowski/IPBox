@@ -33,7 +33,7 @@ app.get('/', async (req, res) => {
 app.get('/info', async (req, res) => {
   try {
     const data = await database.getAll()
-    res.json(data)
+    res.json(data.map((datum, i) => ({ ...datum, position: i + 1 })))
   } catch (error) {
     console.error(error)
     res.sendStatus(500)
