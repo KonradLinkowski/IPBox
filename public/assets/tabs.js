@@ -24,6 +24,7 @@
     panels[oldIndex].hidden = true;
     panels[index].hidden = false;
     tabs[index].focus();
+    window.resizeMap();
   }
   
   // Add the tablist role to the first <ul> in the .tabbed container

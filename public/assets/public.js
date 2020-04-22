@@ -102,6 +102,12 @@
     }
   }
 
+  const resizeMap = () => {
+    map.invalidateSize()
+  }
+
+  window.resizeMap = resizeMap
+
   setInterval(run, 3000)
   run()
 })();
