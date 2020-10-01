@@ -102,18 +102,22 @@ only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 1024px)  {
 
 	/* Force table to not be like tables anymore */
-	#visitors-table, .visitors__header, .visitors__body, .visitors__hcell, .visitors__tcell, .visitors__row { 
+  .visitors, .visitors__header, .visitors__body, .visitors__hcell, .visitors__tcell, .visitors__row { 
 		display: block; 
 	}
 	
-	/* Hide table headers (but not display: none;, for accessibility) */
+	/* Hide table headers (for accessibility) */
 	.visitors__header .visitors__row { 
 		position: absolute;
 		top: -9999px;
 		left: -9999px;
-	}
+  }
+  
+  .visitors__header {
+    display: none;
+  }
 	
-	.visitors__row { border: 1px solid #ddd; }
+	.visitors__row { border: 1px solid #ddd; margin: 1rem 0;}
 	
 	.visitors__tcell { 
 		/* Behave  like a "row" */
