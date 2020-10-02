@@ -14,6 +14,10 @@ body {
   font-size: 50px;
 }
 
+.tabs {
+  margin: 20px 15px;
+}
+
 .tabs__list {
   padding: 0;
   display: flex;
@@ -33,19 +37,23 @@ body {
   padding: 0.8rem;
   width: 100%;
   height: 100%;
-  border-bottom: 2px solid;
+  box-shadow: rgba(0, 0, 0, 0.12) 0.3125rem 0.3125rem 0.9375rem;
   text-align: center;
   color: black;
+  border: 1px solid #858b88;
 }
 
 .tabs__link[aria-selected] {
-  border: 2px solid;
-  background: #fff;
+  border: 1px solid #858b88;
+  box-shadow: rgba(0, 0, 0, 0.12) 0.3125rem 0.3125rem 0.9375rem;
+  background: #000;
+  color: #fff;
   border-bottom: 0;
 }
 
 .tabs__panel {
-  border: 2px solid;
+  border: 1px solid #858b88;
+  box-shadow: rgba(0, 0, 0, 0.12) 0.3125rem 0.3125rem 0.9375rem;
   border-top: none;
   padding: 1.5rem;
 }
