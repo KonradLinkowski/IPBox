@@ -6,8 +6,9 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "node lib/index.js",
-    "dev": "nodemon lib/index.js"
+    "start": "node -r dotenv/config lib/index.js",
+    "dev": "node -r dotenv/config lib/index.js dotenv_config_path=.dev.env",
+    "dev:watch": "nodemon -r dotenv/config lib/index.js dotenv_config_path=.dev.env"
   },
   "dependencies": {
     "axios": "^0.19.2",
