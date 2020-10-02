@@ -96,7 +96,11 @@
     Array.prototype.unshift.apply(currentData, newData)
     if (newData.length) {
       const firstTrue = newData.find(datum => datum.latitude && datum.longitude)
-      map.setView([firstTrue.latitude, firstTrue.longitude], 13)
+      if (firstTrue) {
+        map.setView([firstTrue.latitude, firstTrue.longitude], 13)
+      } else {
+        map.setView([0, 0], 3)
+      }
       renderTable(newData)
       createMarkers(newData)
     }
