@@ -43,12 +43,17 @@ body {
   border: 1px solid #858b88;
 }
 
+.tabs__link:hover {
+  background: #000;
+  color: #fff;
+  transition: all .5s;
+}
+
 .tabs__link[aria-selected] {
-  border: 1px solid #858b88;
   box-shadow: rgba(0, 0, 0, 0.12) 0.3125rem 0.3125rem 0.9375rem;
   background: #000;
   color: #fff;
-  border-bottom: 0;
+  border: 0;
 }
 
 .tabs__panel {
