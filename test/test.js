@@ -3,7 +3,7 @@ const database = require('../lib/database');
 const TestUtil = require('./test-util');
 const assert = require('assert');
 
-const testSample = TestUtil.testSample();
+const ipInfoTestData = TestUtil.getIPInfoTestData();
 
 describe('IP Info', function () {
 
@@ -18,15 +18,15 @@ describe('IP Info', function () {
 
     describe('addEntry', function () {
         it('should add new entry to database', async function () {
-            let result = await database.addEntry(testSample);
-            assert.strictEqual(result.ip, testSample.ip ,"IP Info saved");
+            let result = await database.addEntry(ipInfoTestData);
+            assert.strictEqual(result.ip, ipInfoTestData.ip ,"IP Info saved");
         })
     })
 
     describe('addEntry', function () {
         it('should throw duplicate key exception', async function () {
             await assert.rejects(async () => {
-                await database.addEntry(testSample)
+                await database.addEntry(ipInfoTestData)
             }, {code: 11000}, "Entry wasn't rejected for duplicate key");
         })
     })

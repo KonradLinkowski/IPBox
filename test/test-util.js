@@ -1,3 +1,6 @@
+/*
+ * Tools and data for the testing
+ */
 const TestUtil = {
     getRandomIP: () => {
         let ip = "";
@@ -7,7 +10,7 @@ const TestUtil = {
         return ip.slice(0,-1);
     },
 
-    testSample: () => {
+    getIPInfoTestData: () => {
         return {
             ip: TestUtil.getRandomIP(),
             region: "Hacktober",
