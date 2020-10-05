@@ -18,12 +18,10 @@ describe('IP Info', function () {
 
     describe('addEntry', function () {
         it('should add new entry to database', async function () {
-            let result = await database.addEntry(ipInfoTestData);
+            const result = await database.addEntry(ipInfoTestData);
             assert.strictEqual(result.ip, ipInfoTestData.ip ,"IP Info saved");
         })
-    })
 
-    describe('addEntry', function () {
         it('should throw duplicate key exception', async function () {
             await assert.rejects(async () => {
                 await database.addEntry(ipInfoTestData)
