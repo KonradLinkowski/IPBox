@@ -114,11 +114,18 @@ and also iPads specifically.
 only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 1024px)  {
 
-	/* Force table to not be like tables anymore */
-  .visitors, .visitors__header, .visitors__body, .visitors__hcell, .visitors__tcell, .visitors__row { 
-		display: block; 
+  
+  /* Force table to not be like tables anymore */
+  .visitors__header, .visitors__body, .visitors__hcell, .visitors__tcell, .visitors__row { 
+    display: block; 
+    word-wrap:break-word;
 	}
-	
+  
+  /* Mobile table set up style */
+  .visitors {
+    table-layout:fixed;
+  }
+
 	/* Hide table headers (for accessibility) */
 	.visitors__header .visitors__row { 
 		position: absolute;
@@ -137,7 +144,8 @@ only screen and (max-width: 760px),
 		border: none;
 		border-bottom: 1px solid #eee; 
 		position: relative;
-		padding-left: 50%; 
+    padding-left: 50%; 
+    word-wrap:break-word;
 	}
 	
 	.visitors__tcell:before { 
@@ -148,7 +156,9 @@ only screen and (max-width: 760px),
 		left: 6px;
 		width: 45%; 
 		padding-right: 10px; 
-		white-space: nowrap;
+    /* white-space: nowrap; 
+    so that lines are broken and spaced out multiline in mobile view of tables */
+    word-wrap:break-word;
 	}
 	
 	/*
